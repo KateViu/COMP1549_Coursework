@@ -37,7 +37,7 @@ public class Client {
                     + serverIp + ":" + serverPort);
             printHelp();
 
-            //Start listener thread for incoming messages
+            //Start listener thread for incoming messages from server
             Thread listenerThread = new Thread(new MessageListener(socket, clientId, writer));
             listenerThread.setDaemon(true); //stops when main thread stops
             listenerThread.start();
@@ -84,7 +84,7 @@ public class Client {
         }
     }
 
-    // Sends a raw formatted message to server
+    // Sends a raw formatted message to thre server socket
     public void sendRaw(String rawMessage) {
         try {
             writer.write(rawMessage + "\n");
@@ -103,6 +103,7 @@ public class Client {
         System.out.println("<text>          — broadcast to all");
     }
 
+    //Closes socket and stops inpuyloop
     private void disconnect() {
         running = false;
         try {
